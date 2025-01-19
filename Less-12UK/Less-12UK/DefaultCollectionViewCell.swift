@@ -10,4 +10,19 @@ import UIKit
 class DefaultCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var textLabel: UILabel!
+    
+    var deleteClousure: (() -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longAction))
+        contentView.addGestureRecognizer(longPress)
+    }
+    
+    @objc func longAction() {
+        deleteClousure?()
+    }
+    
+    
 }

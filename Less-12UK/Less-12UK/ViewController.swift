@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
     
+    var array = [0, 1, 2, 3 ,4 ,5, 6, 7, 8, 9]
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         present(CodeCollectionViewController(), animated: true)
@@ -29,10 +31,10 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        25
+        array.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -43,6 +45,11 @@ extension ViewController: UICollectionViewDataSource {
         
         cell.textLabel.text = "Row \(indexPath.row)"
         
+        cell.deleteClousure = { [weak self, indexPath] in
+            self?.array.remove(at: indexPath.row)
+            self?.collectionView.deleteItems(at: [indexPath])
+            
+        }
         return cell
     }
     

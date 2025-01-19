@@ -72,7 +72,7 @@ extension CodeCollectionViewController: UICollectionViewDataSource {
         }
         
         cell.label.text = "sec: \(indexPath.section), row: \(indexPath.row)"
-                
+        
         return cell
     }
     
