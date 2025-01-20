@@ -16,7 +16,9 @@ class ViewController: UIViewController {
 
     @IBAction func loadDataButtonAction(_ sender: Any) {
         //jsonSerialization()
-        decoding()
+        //decoding()
+        loadDevices()
+        
     }
     
     func jsonSerialization() {
@@ -123,6 +125,21 @@ class ViewController: UIViewController {
         }
             
         task.resume()
+    }
+    
+    func loadDevices() {
+        
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            guard let self else { return }
+            
+            NetworkService.shared.requestDevices { devices in
+                
+                DispatchQueue.main.async {
+                    print(devices)
+                }
+            }
+        }
+        
     }
     
 }
