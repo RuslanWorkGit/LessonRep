@@ -12,10 +12,31 @@ struct WeatherView: View {
     @StateObject private var viewModel = WeatherViewModel()
     
     var body: some View {
-        VStack{
+        VStack(spacing: 20){
             
+            TextField("Enter city", text: $viewModel.cityName) {
+                Task {
+                    await viewModel.fetchWeather(by: viewModel.cityName)
+                }
+            }
+            .textFieldStyle(.roundedBorder)
+            .padding()
+            
+            
+            Text("City: \(viewModel.cityName)")
+                .font(.title)
+            
+            Text("Temperuture: \(viewModel.temperuture)")
+                .font(.headline)
+            
+            Text("Description: \(viewModel.weatherDescription)")
+                .font(.subheadline)
+        }
+        .task {
+            await viewModel.fetchWeather(by: 50.4, by: 30.5)
         }
     }
+   
 }
 
 #Preview {
