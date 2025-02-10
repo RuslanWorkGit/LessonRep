@@ -13,9 +13,12 @@ class YellowViewController: UIViewController {
     private let nameLable = UILabel()
     private let fetchButton = UIButton(type: .system)
     
+    //посилання на viewModel
+    private let viewModel = YellowViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBindings()
     }
     
     private func setupUI() {
@@ -41,8 +44,14 @@ class YellowViewController: UIViewController {
         ])
     }
     
+    private func setupBindings() {
+        viewModel.updateProductName = { [weak self] name in
+            self?.nameLable.text = name
+        }
+    }
+    
     @objc func fetchButtonTapped() {
-        
+        viewModel.fetchProduct()
     }
     
 }
