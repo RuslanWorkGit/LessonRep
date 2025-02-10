@@ -30,11 +30,13 @@ class ViewController: UIViewController {
         vc1.view.backgroundColor = .red
         
         let nav1 = UINavigationController(rootViewController: vc1)
+        nav1.navigationBar.backgroundColor = .systemBlue
     
         let vc2 = UIViewController()
         vc2.view.backgroundColor = .green
         
         let nav2 = UINavigationController(rootViewController: vc2)
+        nav2.navigationBar.backgroundColor = .systemRed
         
         let mainMenuVC = UITabBarController()
         mainMenuVC.viewControllers = [nav1, nav2]
