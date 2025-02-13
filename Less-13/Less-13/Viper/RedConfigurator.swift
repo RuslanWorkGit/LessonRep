@@ -15,6 +15,7 @@ class RedConfigurator {
         let interactor = RedInteractor()
         let view = RedViewController()
         let router = RedRouter()
+        router.navigationController = view.navigationController
         
         let presenter = RedPresenter()
         
