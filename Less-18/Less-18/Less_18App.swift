@@ -11,7 +11,7 @@ import SwiftUI
 struct Less_18App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DataRaceView()
         }
     }
 }
