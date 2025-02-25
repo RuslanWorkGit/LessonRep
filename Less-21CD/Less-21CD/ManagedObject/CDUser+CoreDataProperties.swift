@@ -2,7 +2,7 @@
 //  CDUser+CoreDataProperties.swift
 //  Less-21CD
 //
-//  Created by Ruslan Liulka on 21.02.2025.
+//  Created by Ruslan Liulka on 24.02.2025.
 //
 //
 
@@ -16,9 +16,9 @@ extension CDUser {
         return NSFetchRequest<CDUser>(entityName: "CDUser")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var age: Int16
     @NSManaged public var id: UUID?
+    @NSManaged public var name: String?
     @NSManaged public var products: NSSet?
 
 }

@@ -1,6 +1,6 @@
 //
 //  CDProduct+CoreDataClass.swift
-//  Less-21CD
+//  CDLesson-21
 //
 //  Created by Ruslan Liulka on 24.02.2025.
 //
