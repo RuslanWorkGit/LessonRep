@@ -12,7 +12,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDProduct"/>
     </entity>
-    <entity name="CDWeather" representedClassName="CDWeather" syncable="YES" codeGenerationType="class">
+    <entity name="CDWeatherInfo" representedClassName="CDWeatherInfo" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
