@@ -18,7 +18,9 @@ struct ContentView: View {
             Text(viewModel.text)
         }
         .onAppear {
-            viewModel.useReplaceNil()
+            viewModel.useDebounce()
+            viewModel.useDifferentFilterOpertators()
+            
         }
         .padding()
 

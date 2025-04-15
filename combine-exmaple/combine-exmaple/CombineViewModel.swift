@@ -46,4 +46,49 @@ class CombineViewModel: ObservableObject {
             .replaceNil(with: "Defaults")
             .assign(to: &$text)
     }
+    
+    func useCatch() {
+        Fail(outputType: Int.self , failure: URLError(.badServerResponse))
+            .catch { _ in
+                Just(0)
+            }
+    }
+    
+    func useRetry() {
+        Fail(outputType: Int.self, failure: URLError(.badServerResponse))
+            .retry(3)
+    }
+    
+    func useDebounce() {
+        Just("Hello")
+            
+            .delay(for: .seconds(2) , scheduler: DispatchQueue.main)
+            .map { $0 + " world!" }
+            .assign(to: &$text)
+
+    }
+    
+    func useDifferentFilterOpertators() {
+        let array = [1, 2, 3, 4, 5, 5, 5, 6, 5, 7, 1]
+        
+        array.publisher
+            .filter { $0 % 2 == 0}
+            .collect()
+            .sink { result in
+                print(result)
+            }
+            //.store(in: &<#T##RangeReplaceableCollection#>)
+        array.publisher
+            .removeDuplicates()
+            .collect()
+            .sink { result in
+                print(result)
+            }
+        
+        let set = Set(array)
+        print(set)
+        
+        
+    }
+    
 }
