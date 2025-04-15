@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
+    @StateObject private var viewModel = CombineViewModel()
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(viewModel.text)
+        }
+        .onAppear {
+            viewModel.upperCaseText()
         }
         .padding()
+
     }
 }
 
