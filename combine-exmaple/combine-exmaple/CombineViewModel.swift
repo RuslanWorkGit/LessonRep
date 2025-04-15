@@ -25,7 +25,7 @@ class CombineViewModel: ObservableObject {
                 guard let number = Int(string) else { throw URLError(.badURL)}
                 return number
             }
-            
+        
     }
     
     func upperCaseText() {
@@ -33,6 +33,17 @@ class CombineViewModel: ObservableObject {
             .flatMap { text in
                 Just(text.uppercased())
             }
+            .assign(to: &$text)
+    }
+    
+    func useSwitchToLatest() {
+        let publisher = PassthroughSubject<PassthroughSubject<String, Never>, Never>()
+        publisher.switchToLatest()
+    }
+    
+    func useReplaceNil() {
+        Just(nil as String?) // тут може бути якась змінна
+            .replaceNil(with: "Defaults")
             .assign(to: &$text)
     }
 }

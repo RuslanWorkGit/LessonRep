@@ -18,7 +18,7 @@ struct ContentView: View {
             Text(viewModel.text)
         }
         .onAppear {
-            viewModel.upperCaseText()
+            viewModel.useReplaceNil()
         }
         .padding()
 
