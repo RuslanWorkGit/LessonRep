@@ -142,4 +142,26 @@ class CombineViewModel: ObservableObject {
         Just("Hello")
             .assign(to: \.values, on: obj)
     }
+    
+    func useHandleEvents() {
+        Just("Swift")
+            .handleEvents(receiveOutput: { print("Output: \($0)")})
+            .count()
+            .sink(receiveValue: { print("Count: \($0)")})
+
+        
+        [1,2,3,4].publisher
+            .count()
+            .sink(receiveValue: { print("Count: \($0)")})
+        
+        [1,2,3,4].publisher
+            .first(where: { $0 > 2})
+            .sink(receiveValue: { print("First value: \($0)")})
+        
+        [2,4,6].publisher
+            .allSatisfy { $0 % 2 == 0}
+            .sink { result in
+                print(result)
+            }
+    }
 }

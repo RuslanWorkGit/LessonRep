@@ -19,7 +19,7 @@ struct ContentView: View {
         }
         .onAppear {
             viewModel.useDebounce()
-            viewModel.useAssign()
+            viewModel.useHandleEvents()
             
             
         }
