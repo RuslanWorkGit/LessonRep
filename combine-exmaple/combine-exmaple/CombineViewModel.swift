@@ -91,4 +91,55 @@ class CombineViewModel: ObservableObject {
         
     }
     
+    func useMerge() {
+        let pub1 = [1,2,3].publisher
+        let pub2 = [4,5,6].publisher
+        
+        let pub3 = pub1.merge(with: pub2)
+        print(pub1)
+        print(pub2)
+        print(pub3)
+    }
+    
+    func useCombineLatest() {
+        let pub1 = CurrentValueSubject<Int, Never>(1)
+        let pub2 = CurrentValueSubject<String, Never>("A")
+        
+        pub1.combineLatest(pub2)
+            .sink { print($0)}
+        
+        pub1
+            .sink { number in
+                print(number)
+            }
+        
+        pub1.send(2)
+        pub2.send("B")
+        pub1.combineLatest(pub2)
+            .sink { print($0)}
+        
+
+    }
+    
+    func userZip() {
+        let pub1 = [1,2,3].publisher
+        let pub2 = ["A", "B", "C"].publisher
+        
+        pub1.zip(pub2)
+            .sink { print($0) }
+    }
+    
+    
+    func useAssign() {
+        
+        class MyObject {
+            var values: String = "" {
+                didSet { print("New value: \(values)")}
+            }
+        }
+        
+        let obj = MyObject()
+        Just("Hello")
+            .assign(to: \.values, on: obj)
+    }
 }

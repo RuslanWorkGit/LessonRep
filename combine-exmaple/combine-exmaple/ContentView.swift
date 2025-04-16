@@ -19,7 +19,8 @@ struct ContentView: View {
         }
         .onAppear {
             viewModel.useDebounce()
-            viewModel.useDifferentFilterOpertators()
+            viewModel.useAssign()
+            
             
         }
         .padding()
