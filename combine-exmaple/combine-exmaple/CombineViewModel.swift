@@ -8,8 +8,42 @@
 import Foundation
 import Combine
 
+class WeatherService {
+    static func fetchWeather(for city: String) -> AnyPublisher<String, Never> {
+        Just("Weather in \(city): 20 degree")
+            .delay(for: .seconds(1) , scheduler: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+}
+
 class CombineViewModel: ObservableObject {
     @Published var text: String = ""
+    @Published var serchedText: String = ""
+    @Published var writeInfo: String = ""
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init() {
+        setupBinding()
+    }
+    
+    func setupBinding() {
+        $serchedText
+            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] query in
+                guard !query.isEmpty else { return }
+                self?.fetchWeather(for: query)
+            }
+            .store(in: &cancellables)
+        
+        
+    }
+    
+    func fetchWeather(for city: String) {
+        WeatherService.fetchWeather(for: city)
+            .assign(to: &$writeInfo)
+    }
     
     func loadData() {
         Just("Hello")

@@ -12,9 +12,11 @@ struct ContentView: View {
     @StateObject private var viewModel = CombineViewModel()
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
+            TextField("Enter city", text: $viewModel.serchedText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Text(viewModel.writeInfo)
+                .padding()
             Text(viewModel.text)
         }
         .onAppear {
