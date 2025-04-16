@@ -29,9 +29,18 @@ class CombineViewModel: ObservableObject {
     
     func setupBinding() {
         $serchedText
-            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
+            .map {
+                self.removeRepitingLetter(from: $0)
+                
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .lowercased()
+
+            }
             .removeDuplicates()
+            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
+
             .sink { [weak self] query in
+                //let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !query.isEmpty else { return }
                 self?.fetchWeather(for: query)
             }
@@ -43,6 +52,22 @@ class CombineViewModel: ObservableObject {
     func fetchWeather(for city: String) {
         WeatherService.fetchWeather(for: city)
             .assign(to: &$writeInfo)
+    }
+    
+
+    
+    func removeRepitingLetter(from text: String) -> String {
+        var result = ""
+        var previousChar: Character?
+        
+        for char in text {
+            if char != previousChar {
+                result.append(char)
+            }
+            previousChar = char
+        }
+        
+        return result
     }
     
     func loadData() {
