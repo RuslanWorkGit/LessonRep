@@ -14,6 +14,15 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func oopAction(_ sender: Any) {
+        
+        let bankAccount = BackAccount()
+        
+        bankAccount.depositn(amount: 100)
+        bankAccount.showBalance()
+    }
+    @IBAction func solidAction(_ sender: Any) {
+    }
+    
 }
 
