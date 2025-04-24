@@ -157,3 +157,54 @@ import UIKit
 //    print("END")
 //}
 
+
+class UserFetcher {
+    
+    func fetchUser() async -> User {
+        try? await Task.sleep(for: .seconds(2))
+        
+        return User(name: "Rusla")
+    }
+    
+    deinit {
+        print("Userfetcher deallocated")
+    }
+}
+
+struct User {
+    let name: String
+    
+
+}
+
+@MainActor
+class UserViewModel {
+    var currentUser: User?
+    
+    func loadUser() async {
+        currentUser = try? await UserFetcher().fetchUser()
+        print(currentUser?.name)
+        
+    }
+    
+    deinit {
+        print("User View Model deallocated")
+    }
+
+}
+
+func testViewModel() async {
+    var userViewModel: UserViewModel? = UserViewModel()
+    
+    await userViewModel?.loadUser()
+    
+    userViewModel = nil
+    
+}
+
+print("Start")
+
+Task {
+    await testViewModel()
+    print("End")
+}
