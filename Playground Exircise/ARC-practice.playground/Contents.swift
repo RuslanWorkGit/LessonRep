@@ -161,8 +161,12 @@ import UIKit
 class UserFetcher {
     
     func fetchUser() async -> User {
-        try? await Task.sleep(for: .seconds(2))
+        guard !Task.isCancelled else {
+            print("Task cancelled before sleep")
+            return User(name: "No name")
+        }
         
+        try? await Task.sleep(for: .seconds(2))
         return User(name: "Rusla")
     }
     
@@ -180,11 +184,22 @@ struct User {
 @MainActor
 class UserViewModel {
     var currentUser: User?
+    var currentTask: Task<Void, Never>?
     
-    func loadUser() async {
-        currentUser = try? await UserFetcher().fetchUser()
-        print(currentUser?.name)
+    func loadUser() {
+        currentTask?.cancel()
         
+        currentTask = Task { [weak self] in
+            guard let self = self else { return }
+            let user = await UserFetcher().fetchUser()
+            self.currentUser = user
+            print(user.name)
+        }
+        
+    }
+    
+    func cancelLoading() {
+        currentTask?.cancel()
     }
     
     deinit {
@@ -196,8 +211,12 @@ class UserViewModel {
 func testViewModel() async {
     var userViewModel: UserViewModel? = UserViewModel()
     
-    await userViewModel?.loadUser()
+    userViewModel?.loadUser()
     
+    try? await Task.sleep(for: .seconds(1))
+    await userViewModel?.cancelLoading()
+    
+    try? await Task.sleep(for: .seconds(2))
     userViewModel = nil
     
 }
@@ -205,6 +224,7 @@ func testViewModel() async {
 print("Start")
 
 Task {
+    
     await testViewModel()
     print("End")
 }
