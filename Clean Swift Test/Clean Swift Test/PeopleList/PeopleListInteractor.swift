@@ -19,11 +19,15 @@ protocol PeopleListBusinessLogic
 
 protocol PeopleListDataStore
 {
-    //var name: String { get set }
+    var selectedPerson: PeopleList.Person? { get set }
+    var people: [PeopleList.Person] { get set }
 }
 
 class PeopleListInteractor: PeopleListBusinessLogic, PeopleListDataStore
 {
+    var selectedPerson: PeopleList.Person?
+    var people: [PeopleList.Person] = []
+    
     var presenter: PeopleListPresentationLogic?
     var worker: PeopleListWorker?
     //var name: String = ""
@@ -34,6 +38,8 @@ class PeopleListInteractor: PeopleListBusinessLogic, PeopleListDataStore
     {
         worker = PeopleListWorker()
         let people = worker?.fetchPeople() ?? []
+        
+        self.people = people
         
         let response = PeopleList.FetchPeople.Response(people: people)
         presenter?.presentPeople(response: response)

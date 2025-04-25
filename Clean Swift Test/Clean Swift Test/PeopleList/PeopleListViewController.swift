@@ -116,5 +116,7 @@ extension PeopleListViewController: UITableViewDataSource {
 }
 
 extension PeopleListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        router?.routToDetailsScreen(at: indexPath.row)
+    }
 }

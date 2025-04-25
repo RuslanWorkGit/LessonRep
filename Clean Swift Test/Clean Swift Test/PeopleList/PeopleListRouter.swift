@@ -14,47 +14,57 @@ import UIKit
 
 @objc protocol PeopleListRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routToDetailsScreen(at index: Int)
 }
 
 protocol PeopleListDataPassing
 {
-  var dataStore: PeopleListDataStore? { get }
+    var dataStore: PeopleListDataStore? { get }
 }
 
 class PeopleListRouter: NSObject, PeopleListRoutingLogic, PeopleListDataPassing
 {
-  weak var viewController: PeopleListViewController?
-  var dataStore: PeopleListDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
 
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: PeopleListViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: PeopleListDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    
+    weak var viewController: PeopleListViewController?
+    var dataStore: PeopleListDataStore?
+    
+    func routToDetailsScreen(at index: Int) {
+        guard let person = dataStore?.people[index] else { return }
+        
+        let detailsVC = PersonDetailsViewController()
+        detailsVC.person = person
+        viewController?.navigationController?.pushViewController(detailsVC, animated: true)
+    }
+    // MARK: Routing
+    
+    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    //{
+    //  if let segue = segue {
+    //    let destinationVC = segue.destination as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //  } else {
+    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
+    //  }
+    //}
+    
+    // MARK: Navigation
+    
+    //func navigateToSomewhere(source: PeopleListViewController, destination: SomewhereViewController)
+    //{
+    //  source.show(destination, sender: nil)
+    //}
+    
+    // MARK: Passing data
+    
+    //func passDataToSomewhere(source: PeopleListDataStore, destination: inout SomewhereDataStore)
+    //{
+    //  destination.name = source.name
+    //}
 }
