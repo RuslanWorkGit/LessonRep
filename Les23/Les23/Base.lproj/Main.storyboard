@@ -24,16 +24,27 @@
                                     <constraint firstAttribute="width" constant="128" id="Kcg-H9-YPT"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8k2-zg-yFk" customClass="CustomDrawingView" customModule="Les23" customModuleProvider="target">
+                                <rect key="frame" x="20" y="338" width="128" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="hqo-JL-qO3"/>
+                                    <constraint firstAttribute="height" constant="128" id="t2J-9d-dmW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dhb-3W-fcd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RGE-dX-wFk"/>
+                            <constraint firstItem="8k2-zg-yFk" firstAttribute="leading" secondItem="dhb-3W-fcd" secondAttribute="leading" id="chY-ki-NkN"/>
+                            <constraint firstItem="8k2-zg-yFk" firstAttribute="top" secondItem="dhb-3W-fcd" secondAttribute="bottom" constant="72" id="pjc-dq-RUD"/>
                             <constraint firstItem="dhb-3W-fcd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="r9d-2i-mDu"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="circleView" destination="dhb-3W-fcd" id="YPV-eB-Yn0"/>
+                        <outlet property="customDrawingView" destination="8k2-zg-yFk" id="uP9-G7-Den"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
