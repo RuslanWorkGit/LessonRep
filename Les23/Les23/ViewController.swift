@@ -11,6 +11,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var circleView: CircleView!
     @IBOutlet weak var customDrawingView: CustomDrawingView!
+    @IBOutlet weak var gradientView: GradientView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
